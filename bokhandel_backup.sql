@@ -47,7 +47,7 @@ CREATE TABLE `bestallningar` (
 
 LOCK TABLES `bestallningar` WRITE;
 /*!40000 ALTER TABLE `bestallningar` DISABLE KEYS */;
-INSERT INTO `bestallningar` VALUES (1,1,79.99,'2025-12-03 07:33:48'),(2,2,99.99,'2025-12-03 07:33:48'),(3,3,199.98,'2025-12-03 07:33:48'),(4,1,239.98,'2026-03-11 14:36:34'),(5,1,99.99,'2026-03-11 14:40:35');
+INSERT INTO `bestallningar` VALUES (1,1,79.99,'2026-03-11 20:16:12'),(2,1,239.98,'2026-03-11 20:16:12'),(3,1,99.99,'2026-03-11 20:16:12'),(4,2,99.99,'2026-03-11 20:16:12'),(5,3,199.98,'2026-03-11 20:16:12');
 /*!40000 ALTER TABLE `bestallningar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +76,7 @@ CREATE TABLE `bocker` (
 
 LOCK TABLES `bocker` WRITE;
 /*!40000 ALTER TABLE `bocker` DISABLE KEYS */;
-INSERT INTO `bocker` VALUES (9324234311,'Brian Herbet','Sci-fi','Dune: House Atreides',119.99,5),(9634982340,'Ravrek al-Dahim','Sci-fi','Chronicles of the Spice Horizon',99.99,3),(9834032234,'Frank Herbert','Sci-fi','Dune',79.99,10);
+INSERT INTO `bocker` VALUES (9324234311,'Brian Herbet','Sci-fi','Dune: House Atreides',119.99,1),(9634982340,'Ravrek al-Dahim','Sci-fi','Chronicles of the Spice Horizon',99.99,1),(9834032234,'Frank Herbert','Sci-fi','Dune',79.99,9);
 /*!40000 ALTER TABLE `bocker` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,8 @@ CREATE TABLE `kunder` (
   `Telefon` varchar(30) NOT NULL,
   `Adress` varchar(100) NOT NULL,
   PRIMARY KEY (`KundID`),
-  UNIQUE KEY `Epost` (`Epost`)
+  UNIQUE KEY `Epost` (`Epost`),
+  KEY `idx_epost` (`Epost`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -104,7 +105,7 @@ CREATE TABLE `kunder` (
 
 LOCK TABLES `kunder` WRITE;
 /*!40000 ALTER TABLE `kunder` DISABLE KEYS */;
-INSERT INTO `kunder` VALUES (1,'Paul Atreides','paul.atreides@dune.com','123','Arrakis'),(2,'Duncan Idaho','duncan.idaho@dune.com','456','Arrakis'),(3,'Glossu Rabban','glossu.rabban@dune.com','789','Arrakis'),(4,'Test Deletion','test.deletion@dune.com','789','Arakkis');
+INSERT INTO `kunder` VALUES (1,'Paul Atreides','paul.atreides@dune.com','123','Arrakis'),(2,'Duncan Idaho','duncan.idaho@dune.com','456','Arrakis'),(3,'Glossu Rabban','glossu.rabban@dune.com','789','Arrakis'),(4,'Test Deletion','testdeletion@dune.com','101112','Arrakis');
 /*!40000 ALTER TABLE `kunder` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -125,6 +126,34 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `kundlogg`
+--
+
+DROP TABLE IF EXISTS `kundlogg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kundlogg` (
+  `LoggID` int NOT NULL AUTO_INCREMENT,
+  `KundID` int DEFAULT NULL,
+  `Handelse` varchar(255) DEFAULT NULL,
+  `Loggdatum` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`LoggID`),
+  KEY `KundID` (`KundID`),
+  CONSTRAINT `kundlogg_ibfk_1` FOREIGN KEY (`KundID`) REFERENCES `kunder` (`KundID`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kundlogg`
+--
+
+LOCK TABLES `kundlogg` WRITE;
+/*!40000 ALTER TABLE `kundlogg` DISABLE KEYS */;
+INSERT INTO `kundlogg` VALUES (1,1,NULL,'2026-03-11 20:16:04'),(2,2,NULL,'2026-03-11 20:16:04'),(3,3,NULL,'2026-03-11 20:16:04'),(4,4,NULL,'2026-03-11 20:24:35');
+/*!40000 ALTER TABLE `kundlogg` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `orderrader`
@@ -190,4 +219,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 20:11:47
+-- Dump completed on 2026-03-11 21:40:45
