@@ -23,13 +23,13 @@ Jag insåg att jag hade AUTO_INCREMENT på ISBN i Bocker-tabellen, så jag ändr
 # Vilken data är viktig att testa i en bokhandel? 
 - Det är viktigt att blandannat testa så att CHECK fungerar så att priset inte kan vara 0. Även viktigt att testa registrera två likadana epost adresser, det ska ej gå då den attributen är satt som UNIQUE. Något annat som är viktigt att testa är att triggers fungerar för uppdatering av lagersaldo.
 
-# Varför valde jag att designa relationsdatabasen på detta sättet?
+## Varför valde jag att designa relationsdatabasen på detta sättet?
 - Jag valde att designa relationsdatabasen så här för att få till normalisering vilket utmärker en relationsdatabasdesign. Jag har blandannat delat upp Orderrader och Beställning i olika tabeller för att säkerställa att data inte dupliceras. Utifrån dataintegritets-synvinkel så har jag använt mig av constraints som primary key, foreign key, unique, check, index som säkerställer att bokhandelskonceptet fungerar som tänkt. Med det menar jag att en beställning kan inte finnas om det inte finns en kund samt att inga böcker kan beställas om de inte existerar i Bocker-tabellen.
 
-# Vad skulle jag ändra om databasen skulle hantera 100 000 kunder istället för 10?
+## Vad skulle jag ändra om databasen skulle hantera 100 000 kunder istället för 10?
 - Jag skulle förmodligen ha något sätt att arkivera/rensa gamla kundloggar från kundlogg-tabellen just för att jag har trigger på uppdatera nya kunder. Utöver det så skulle jag vilja indexera fler kolumner som används ofta just för att databasen ska kunna hitta datan snabbare (ökad prestanda). Till sist så hade jag velat undvika queries som blir för påfrestande (SELECT * FROM KUNDER;) och istället använd WHERE för att minska mängd data att scanna.
 
-# Diskutera vilka optimeringar som kan göras i index och struktur för att förbättra prestandan
+## Diskutera vilka optimeringar som kan göras i index och struktur för att förbättra prestandan
 - Gällande optimeringar som kan göras i index så skulle jag vilja indexera även kolumner som används frekvent i join-satserna, exempelvis ISBN i Orderrader och KundID i bestallningar-tabellen. Vad gäller strukturen så skulle man kunna dela upp beställningar till två nya tabeller Gamla_Bestallningar och Nya_Bestallningar för att kunna ha separata lagringsytor.
 
 
