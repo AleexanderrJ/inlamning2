@@ -21,7 +21,7 @@ Jag insåg att jag hade AUTO_INCREMENT på ISBN i Bocker-tabellen, så jag ändr
 
 # Reflektion och Analys
 ## Vilken data är viktig att testa i en bokhandel? 
-- Det är viktigt att blandannat testa så att CHECK fungerar så att priset inte kan vara 0. Även viktigt att testa registrera två likadana epost adresser, det ska ej gå då den attributen är satt som UNIQUE. Något annat som är viktigt att testa är att triggers fungerar för uppdatering av lagersaldo.
+- Det är viktigt att blandannat testa så att CHECK fungerar så att priset inte kan vara 0. Det är även viktigt att testa att registrera två likadana epost-adresser. Detta för att påvisa att det inte är möjligt på grund av att attributen har UNIQUE constraint. Något annat som är viktigt att testa är att triggers fungerar för uppdatering av lagersaldo.
 
 ## Varför valde jag att designa relationsdatabasen på detta sättet?
 - Jag valde att designa relationsdatabasen så här för att få till normalisering vilket utmärker en relationsdatabasdesign. Jag har blandannat delat upp Orderrader och Beställning i olika tabeller för att säkerställa att data inte dupliceras. Utifrån dataintegritets-synvinkel så har jag använt mig av constraints som primary key, foreign key, unique, check, index som säkerställer att bokhandelskonceptet fungerar som tänkt. Med det menar jag att en beställning kan inte finnas om det inte finns en kund samt att inga böcker kan beställas om de inte existerar i Bocker-tabellen.
