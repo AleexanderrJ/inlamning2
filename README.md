@@ -19,8 +19,8 @@ Relationerna gör det möjligt för
 ## Vad har jag stött på under skapandet av databas-strukturen?
 Jag insåg att jag hade AUTO_INCREMENT på ISBN i Bocker-tabellen, så jag ändrade det till BIGINT. Varje bok har sitt unika ISBN och därför blir det inte korrekt att auto-generera värdet.
 
-## Reflektion och Analys
-# Vilken data är viktig att testa i en bokhandel? 
+# Reflektion och Analys
+## Vilken data är viktig att testa i en bokhandel? 
 - Det är viktigt att blandannat testa så att CHECK fungerar så att priset inte kan vara 0. Även viktigt att testa registrera två likadana epost adresser, det ska ej gå då den attributen är satt som UNIQUE. Något annat som är viktigt att testa är att triggers fungerar för uppdatering av lagersaldo.
 
 ## Varför valde jag att designa relationsdatabasen på detta sättet?
