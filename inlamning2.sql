@@ -136,6 +136,8 @@ DESCRIBE Bocker;
 DESCRIBE Bestallningar;
 DESCRIBE Orderrader;
 
+
+
 /*
 Där det står NOT NULL måste det stå något. 
 Där det står CHECK så måste värdet vara större än 0
@@ -244,5 +246,22 @@ HAVING COUNT(Ordernummer) > 2;
 CREATE INDEX idx_epost
 ON Kunder (Epost);
 
+
+
+
+/*
+Där det står NOT NULL måste det stå något. 
+Där det står CHECK så måste värdet vara större än 0
+Primary key samt UNIQUE NOT NULL är unika värden som MÅSTE vara unika.
+ISBN är som böckernas "personnummer" är unikt och ändras inte. 
+
+
+När man exekverar raderna 4-69 så skapas databasen, tabellerna + attributerna samt lite data infogas även i tabellerna.
+Jag har adderat några SELECT FROM så att man kan visa resultat av tabellerna rent visuellt.
+Utöver SELECT FROM så har jag även adderat INNER JOIN, LEFT JOIN och RIGHT JOIN för att hämta antingen matchande i två tabeller eller höger/vänster tabell + matchingar.
+Dessutom så har jag indexerat Epost i Kunder-tabellen.
+
+
+*/
 
 
