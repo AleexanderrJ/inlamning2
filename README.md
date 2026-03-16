@@ -30,7 +30,7 @@ Jag insåg att jag hade AUTO_INCREMENT på ISBN i Bocker-tabellen, så jag ändr
 - Jag skulle förmodligen ha något sätt att arkivera/rensa gamla kundloggar från kundlogg-tabellen just för att jag har trigger på uppdatera nya kunder. Utöver det så skulle jag vilja indexera fler kolumner som används ofta just för att databasen ska kunna hitta datan snabbare (ökad prestanda). Till sist så hade jag velat undvika queries som blir för påfrestande (SELECT * FROM KUNDER;) och istället använd WHERE för att minska mängd data att scanna.
 
 ## Diskutera vilka optimeringar som kan göras i index och struktur för att förbättra prestandan
-- Gällande optimeringar som kan göras i index så skulle jag vilja indexera även kolumner som används frekvent i join-satserna, exempelvis ISBN i Orderrader och KundID i bestallningar-tabellen. Vad gäller strukturen så skulle man kunna dela upp beställningar i tabeller Gamla_Bestallningar och Nya_Bestallningar för att kunna ha separata lagringsytor.
+- Gällande optimeringar som kan göras i index så skulle jag vilja indexera även kolumner som används frekvent i join-satserna, exempelvis ISBN i Orderrader och KundID i bestallningar-tabellen. Vad gäller strukturen så skulle man kunna dela upp beställningar i två tabeller Gamla_Bestallningar och Nya_Bestallningar för att kunna ha separata lagringsytor.
 
 
 ## ER-diagram
