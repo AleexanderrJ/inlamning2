@@ -59,16 +59,16 @@ CREATE TABLE Orderrader (
 -- Skapa en trigger som uppdaterar lagerstatus efter en beställnings gjorts (punkt 3 & 4 i 5.)
 DELIMITER $$
 
--- Första triggern
+-- Trigger för loggning av nya kunder
 CREATE TRIGGER logga_ny_kund
 AFTER INSERT ON Kunder
 FOR EACH ROW
 BEGIN
-   INSERT INTO Kundlogg (KundID)
-   VALUES (NEW.KundID);
+   INSERT INTO Kundlogg (KundID, Handelse)
+   VALUES (NEW.KundID, 'Ny kund registrerad i databasen');
 END $$
 
--- Andra triggern
+-- Trigger för uppdatering av lagerstatus
 CREATE TRIGGER uppdatera_lagersaldo
 AFTER INSERT ON Orderrader
 FOR EACH ROW 
