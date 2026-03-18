@@ -1,8 +1,8 @@
 
 -- Utfört av Alexander Johansson YH25
 
-CREATE DATABASE inlamning1; -- skapar databasen som motsvarar en liten bokhandel
-USE inlamning1; -- använder databasen för att kunna ändra/läsa av innehållet i databasen.
+CREATE DATABASE inlamning2; -- skapar databasen som motsvarar en liten bokhandel
+USE inlamning2; -- använder databasen för att kunna ändra/läsa av innehållet i databasen.
 
 
 
