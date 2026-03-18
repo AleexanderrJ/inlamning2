@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: inlamning1
+-- Host: localhost    Database: inlamning2
 -- ------------------------------------------------------
 -- Server version	9.5.0
 
@@ -21,6 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b02659d2-bf9c-11f0-b355-005056c00001:1-244';
 
 --
 -- Table structure for table `bestallningar`
@@ -47,7 +48,7 @@ CREATE TABLE `bestallningar` (
 
 LOCK TABLES `bestallningar` WRITE;
 /*!40000 ALTER TABLE `bestallningar` DISABLE KEYS */;
-INSERT INTO `bestallningar` VALUES (1,1,79.99,'2026-03-11 20:16:12'),(2,1,239.98,'2026-03-11 20:16:12'),(3,1,99.99,'2026-03-11 20:16:12'),(4,2,99.99,'2026-03-11 20:16:12'),(5,3,199.98,'2026-03-11 20:16:12');
+INSERT INTO `bestallningar` VALUES (1,1,79.99,'2026-03-18 08:48:40'),(2,1,239.98,'2026-03-18 08:48:40'),(3,1,99.99,'2026-03-18 08:48:40'),(4,2,99.99,'2026-03-18 08:48:40'),(5,3,199.98,'2026-03-18 08:48:40');
 /*!40000 ALTER TABLE `bestallningar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,8 +119,8 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `logga_ny_kund` AFTER INSERT ON `kunder` FOR EACH ROW BEGIN
-   INSERT INTO Kundlogg (KundID)
-   VALUES (NEW.KundID);
+   INSERT INTO Kundlogg (KundID, Handelse)
+   VALUES (NEW.KundID, 'Ny kund registrerad i databasen');
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -151,7 +152,7 @@ CREATE TABLE `kundlogg` (
 
 LOCK TABLES `kundlogg` WRITE;
 /*!40000 ALTER TABLE `kundlogg` DISABLE KEYS */;
-INSERT INTO `kundlogg` VALUES (1,1,NULL,'2026-03-11 20:16:04'),(2,2,NULL,'2026-03-11 20:16:04'),(3,3,NULL,'2026-03-11 20:16:04'),(4,4,NULL,'2026-03-11 20:24:35');
+INSERT INTO `kundlogg` VALUES (1,1,'Ny kund registrerad i databasen','2026-03-18 08:48:40'),(2,2,'Ny kund registrerad i databasen','2026-03-18 08:48:40'),(3,3,'Ny kund registrerad i databasen','2026-03-18 08:48:40'),(4,4,'Ny kund registrerad i databasen','2026-03-18 08:48:40');
 /*!40000 ALTER TABLE `kundlogg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +207,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
--- Dumping routines for database 'inlamning1'
+-- Dumping routines for database 'inlamning2'
 --
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -219,4 +220,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-11 21:40:45
+-- Dump completed on 2026-03-18  9:55:38
