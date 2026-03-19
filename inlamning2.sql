@@ -84,6 +84,7 @@ DELIMITER ;
 
 
 
+
 -- Infogar data i Kunder-tabellen
 INSERT INTO Kunder (Namn, Epost, Telefon, Adress) VALUES 
     ('Paul Atreides', 'paul.atreides@dune.com', '123', 'Arrakis'),
@@ -138,20 +139,6 @@ DESCRIBE Orderrader;
 
 
 
-/*
-Där det står NOT NULL måste det stå något. 
-Där det står CHECK så måste värdet vara större än 0
-Primary key samt UNIQUE NOT NULL är unika värden som MÅSTE vara unika.
-ISBN är som böckernas "personnummer" är unikt och ändras inte. 
-
-
-När man exekverar raderna 4-69 så skapas databasen, tabellerna + attributerna samt lite data infogas även i tabellerna.
-Jag har adderat några SELECT FROM så att man kan visa resultat av tabellerna rent visuellt.
-
-*/
-
-
-
 
 -- Inlämning2, påbyggnad av första inlämningen --
 
@@ -178,13 +165,21 @@ SELECT * FROM Bocker ORDER BY Pris DESC;
 
 
 
-
-
 -- Modifiera DATA (UPDATE, DELETE, TRANSAKATIONER)
 -- Uppdatera kund med ID 1's epost-adress (punkt 1)
+
+SELECT * FROM Kunder;
+
+START TRANSACTION; 
+
 UPDATE Kunder
 SET Epost = 'paul.atreides2@dune.com'
 WHERE KundID = 1;
+
+ROLLBACK;
+
+
+
 
 
  -- Kolla så att kunden fanns, blev borttagen samt rollbackad (punkt 2)
@@ -195,16 +190,10 @@ START TRANSACTION;
 
 -- Ta bort Test Deletion som kund.
 DELETE FROM Kunder
-WHERE KundID = 1; 
+WHERE KundID = 4; 
 
 -- Rollbacka senaste ändringen
 ROLLBACK;
-
-
-
-
-
-
 
 
 
@@ -228,14 +217,12 @@ ORDER BY Bestallningar.Ordernummer ASC;
 
 
 -- Hämta hur många beställningar varje kund har lagt. (punkt 3)
-SELECT KundID, COUNT(KundID) 
-AS 'Antal Beställningar' 
+SELECT KundID, COUNT(KundID) AS 'Antal Beställningar' 
 FROM Bestallningar
 GROUP BY KundID;
 
 -- Visa endast de kunder lagt fler än 2 beställningar (punkt 4)
-SELECT KundID, COUNT(Ordernummer)
-AS 'Antal Beställningar'
+SELECT KundID, COUNT(Ordernummer) AS 'Antal Beställningar'
 FROM Bestallningar
 GROUP BY KundID 
 HAVING COUNT(Ordernummer) > 2;
@@ -245,6 +232,42 @@ HAVING COUNT(Ordernummer) > 2;
 -- Skapa index på e-post i Kunder (punkt 1)
 CREATE INDEX idx_epost
 ON Kunder (Epost);
+
+-- Testa att lägga till en produkt med pris 0 (punkt 2)
+INSERT INTO Bocker (ISBN, Forfattare, Genre, Titel, Pris, Lagerstatus) VALUES 
+    ('9834014534', 'Test Testar', 'Sci-fi', 'Dune', 0, 10);
+
+
+
+-- Kolla lagerstatus innan beställning (punkt 3)
+SELECT ISBN, Titel, Lagerstatus 
+FROM Bocker 
+WHERE ISBN = 9834032234; -- 'Dune' av Frank Herbert
+
+-- ny beställning för att få ett giltigt Ordernummer
+INSERT INTO Bestallningar (KundID, Totalbelopp) 
+VALUES (1, 159.98);
+
+-- Lägg till en orderrad först
+-- Vi köper 2 exemplar av boken, vilket ska minska lagersaldot med 2.
+INSERT INTO Orderrader (ISBN, Ordernummer, Antal) 
+VALUES (9834032234, 6, 2);
+
+-- Kolla lagerstatus efter beställningen för att påvisa triggern (punkt 4)
+SELECT ISBN, Titel, Lagerstatus 
+FROM Bocker 
+WHERE ISBN = 9834032234;
+
+
+
+
+-- För att visa att triggern fungerar för uppdatering av nya kunder
+SELECT * FROM Kunder;
+
+INSERT INTO Kunder (Namn, Epost, Telefon, Adress) VALUES 
+    ('Kund Logg', 'kund.logg@logg.com', '99999', 'Arrakis');
+    
+SELECT * FROM Kundlogg;
 
 
 
