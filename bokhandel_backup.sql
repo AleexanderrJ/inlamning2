@@ -21,7 +21,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b02659d2-bf9c-11f0-b355-005056c00001:1-244';
+-- SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b02659d2-bf9c-11f0-b355-005056c00001:1-244';
 
 --
 -- Table structure for table `bestallningar`
