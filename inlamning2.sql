@@ -253,7 +253,7 @@ VALUES (1, 159.98);
 INSERT INTO Orderrader (ISBN, Ordernummer, Antal) 
 VALUES (9834032234, 6, 2);
 
--- Kolla lagerstatus efter beställningen för att påvisa triggern (punkt 4)
+-- Kolla lagerstatus efter beställningen för att påvisa triggern
 SELECT ISBN, Titel, Lagerstatus 
 FROM Bocker 
 WHERE ISBN = 9834032234;
